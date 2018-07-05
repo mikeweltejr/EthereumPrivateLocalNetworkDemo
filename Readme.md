@@ -1,8 +1,8 @@
 # Setting up a Private Network
 
 1. Download the following:
-        * geth from: https://geth.ethereum.org/downloads/ 
-        * https://www.visualstudio.com/thank-you-downloading-visual-studio/?sku=BuildTools&rel=15
+        - geth from: https://geth.ethereum.org/downloads/ 
+        - https://www.visualstudio.com/thank-you-downloading-visual-studio/?sku=BuildTools&rel=15
 
 2. Create directory for the project and create a `genesis.json` file with the following contents:
 
