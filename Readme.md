@@ -1,6 +1,8 @@
 # Setting up a Private Network
 
-1. Download geth from: https://geth.ethereum.org/downloads/
+1. Download the following:
+        * geth from: https://geth.ethereum.org/downloads/ 
+        * https://www.visualstudio.com/thank-you-downloading-visual-studio/?sku=BuildTools&rel=15
 
 2. Create directory for the project and create a `genesis.json` file with the following contents:
 
@@ -30,7 +32,9 @@
 3. Open terminal as administrator and navigate to the path where geth is (on Windows this would be: C:\Program Files\Geth) or you can add it to your environment variables and run it anywhere.
 
 4. Run `geth --datadir myDataDir init ./genesis.json` to initialize your blockchain with a data directory.
+    * NOTE: Everywhere you see myDataDir is literally just a name this is NOT an actual directory or path. This could be foo, test, or any other name you would want it to be.
     * If you want to try creating multiple nodes locally, you will need to have a separate datadir for each node and you will have to use the same genesis.json for each node: `geth --datadir myDataDir2 init ./genesis.json`
+
 
 5. Run the following command: `geth --datadir myDataDir --networkid 220022 --port 30301 --nodiscover console`
 
