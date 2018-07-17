@@ -8,7 +8,7 @@ let account;
 
 const deploy = async () => {
   account = await web3.eth.getCoinbase();
-
+  await web3.eth.personal.unlockAccount(account, 'TestPassword');
   console.log('Attempting to deploy from account', account);
 
   InboxContract = await new web3.eth.Contract(JSON.parse(interface))

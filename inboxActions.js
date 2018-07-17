@@ -8,10 +8,9 @@ let account;
 
 const getContract = async () => {
     account = await web3.eth.getCoinbase();
-    InboxContract = await new web3.eth.Contract(JSON.parse(interface), "0x1A131bBF1346804e149A74a42cbD1cd46A41CA82");
-    console.log('Contract deployed to', InboxContract.options.address);
+    await web3.eth.personal.unlockAccount(account, 'TestPassword');
+    InboxContract = await new web3.eth.Contract(JSON.parse(interface), "0xBfE8Cb975f3e097570A429802390D613CAd232D2");
     contractAddress = InboxContract.options.address;
-    console.log(contractAddress);
 
     setMessage();
 }

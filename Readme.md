@@ -1,10 +1,13 @@
 # Setting up a Private Network
 
-1. Download the following:
-    * geth from: https://geth.ethereum.org/downloads/ 
-    * https://www.visualstudio.com/thank-you-downloading-visual-studio/?sku=BuildTools&rel=15
+1. Download geth from: https://geth.ethereum.org/downloads/
 
-1. Create directory for the project and create a `genesis.json` file with the following contents:
+   or via homebrew on Mac:
+
+        $ brew tap ethereum/ethereum
+        $ brew install ethereum
+
+2. Create directory for the project and create a `genesis.json` file with the following contents:
 
         {
             "alloc": {},
@@ -29,14 +32,12 @@
     * Difficulty will determine how long it takes for our blocks to be processed. Setting it between 10-10,000 will be a quick process time. For reference Ethereum mainnet uses 17179869184 for difficulty.
     * alloc - is allocating some test ether. You don't have to do this as it is very easy to generate test ether locally.
 
-2. Open terminal as administrator and navigate to the path where geth is (on Windows this would be: C:\Program Files\Geth) or you can add it to your environment variables and run it anywhere.
+3. Open terminal as administrator and navigate to the path where geth is (on Windows this would be: C:\Program Files\Geth) or you can add it to your environment variables and run it anywhere.
 
-3. Run `geth --datadir myDataDir init ./genesis.json` to initialize your blockchain with a data directory.
-    * NOTE: Everywhere you see myDataDir is literally just a name this is NOT an actual directory or path. This could be foo, test, or any other name you would want it to be.
+4. Run `geth --datadir myDataDir init ./genesis.json` to initialize your blockchain with a data directory.
     * If you want to try creating multiple nodes locally, you will need to have a separate datadir for each node and you will have to use the same genesis.json for each node: `geth --datadir myDataDir2 init ./genesis.json`
 
-
-4. Run the following command: `geth --datadir myDataDir --networkid 220022 --port 30301 --nodiscover console`
+5. Run the following command: `geth --datadir myDataDir --networkid 220022 --port 30301 --nodiscover console`
 
     * This will start the private network on a custom network (using 220022 here but use whatever number you'd like, and make sure any node connecting is using the networkid you use here).
     * It will open up a console to allow us to run web3 commands against it.
@@ -44,27 +45,27 @@
     * There are other parameters you may want to look at like --rpc --cors which will be helpful if utilizing remix/metamask.
     * The --nodiscover just tells geth not to look for peers initially. This is important with a private network, we don't want other nodes to try to connect to ours without explicitly telling them to.
 
-5. If you're using 2 nodes, run the same command again against your other data directory with the same networkid but a different port:
+6. If you're using 2 nodes, run the same command again against your other data directory with the same networkid but a different port:
     ```command
     geth --datadir myDataDir --networkid 220022 --port 30302 --nodiscover console
     ```
 
     * Might need to add the `--ipcdisable` flag for the second node. This is necessary when running local nodes, you can also specify different --ipcpath for each nodes to make this work.
 
-6. In the javascript console run: `personal.newAccount("YOURPASSWORD")`
+7. In the javascript console run: `personal.newAccount("YOURPASSWORD")`
 
     * If using 2 nodes, do this in both.
     * Make sure to copy down the account address and password you used here.
     * The password parameter is optional here, you can just say newAccount() and it will prompt you for a password.
 
-7. In the javascript console run: `eth.coinbase`
+8. In the javascript console run: `eth.coinbase`
 
     * If using 2 nodes, do this in both.
     * This should be the account you just created as it is the first account that this node has created.
     * If it is not the same run `miner.setEtherbase(web3.eth.accounts[0])` to set it as the default. 
     * You can run the eth.coinbase command throughout to reference your account in case you did not copy it down earlier and want to retrieve it again.
 
-8.  In the console run: `personal.listWallets`
+9. In the console run: `personal.listWallets`
 
     * If using 2 nodes, do this in both.
     * You will notice here that the url will point to the data directory you configured for this node.
@@ -135,7 +136,9 @@
 
         * If you get an error complaining about Invalid RPC Json it means you did not start your node up properly. make sure you included `--rpc --rpcport 30301 --rpccorsdomain http://127.0.0.1` when starting the node.
 
-6. Run `node inboxActions.js` and it should output the new message you added!
+6. Replace the contract address in the getContract method of inboxActions.js with the address recorded in step 5.
+
+7. Run `node inboxActions.js`, and it should output the new message you added!
 
 ## A closer look at these files
 
